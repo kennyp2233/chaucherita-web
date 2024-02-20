@@ -6,14 +6,13 @@ import java.sql.Date;
 import javax.persistence.*;
 
 @Entity(name = "Ingreso")
-public class Ingreso extends Movimiento implements Serializable{
+public class Ingreso extends Movimiento implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	
-	private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	@Column(name = "fecha", nullable = false)
-	@Temporal(TemporalType.DATE)
 	private Date fecha;
 
 	@Column(name = "concepto", nullable = false, length = 200)
@@ -22,7 +21,17 @@ public class Ingreso extends Movimiento implements Serializable{
 	@Column(name = "monto", nullable = false)
 	private Double monto;
 
-	public Ingreso() {
+
+	public Ingreso(Date fecha, String concepto, Double monto) {
+		super(fecha, concepto, monto);
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Date getFecha() {
@@ -47,5 +56,12 @@ public class Ingreso extends Movimiento implements Serializable{
 
 	public void setMonto(Double monto) {
 		this.monto = monto;
+	}
+
+	// Método save específico para Ingreso
+	public void save() {
+		// Implementación del método save para Ingreso
+		// Esta implementación debe ser proporcionada según la lógica de negocio y el
+		// manejo de persistencia específico
 	}
 }
