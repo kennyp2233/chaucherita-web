@@ -51,7 +51,7 @@ public class DashboardController extends HttpServlet {
 
 	private void verDashboard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		// Llamar al modelo 
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		
 		
 	}
 }
