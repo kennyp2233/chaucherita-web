@@ -2,6 +2,7 @@ package modelo;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Objects;
 
 import javax.persistence.*;
 
@@ -21,16 +22,19 @@ public class Ingreso extends Movimiento implements Serializable {
 	@Column(name = "monto", nullable = false)
 	private Double monto;
 
+	public Ingreso() {
+		super(null, null, null);
+	}
 
 	public Ingreso(Date fecha, String concepto, Double monto) {
 		super(fecha, concepto, monto);
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -60,8 +64,49 @@ public class Ingreso extends Movimiento implements Serializable {
 
 	// Método save específico para Ingreso
 	public void save() {
-		// Implementación del método save para Ingreso
-		// Esta implementación debe ser proporcionada según la lógica de negocio y el
-		// manejo de persistencia específico
+	EntityManagerFactory emf = Persistence.createEntityManagerFactory("MiChauchertiaWeb");
+	EntityManager em = emf.createEntityManager();
+	EntityTransaction tx = em.getTransaction();
+	try {
+		tx.begin();
+		em.persist(this);
+		tx.commit();
+	} catch (RuntimeException e) {
+		if (tx.isActive()) {
+			tx.rollback();
+		}
+		throw e;
+	} finally {
+		em.close();
+	}
+	}
+
+	@Override
+	public String toString() {
+		return "Ingreso{" + "id=" + id + ", fecha=" + fecha + ", concepto='" + concepto + '\'' + ", monto=" + monto
+				+ '}';
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof Ingreso))
+			return false;
+
+		Ingreso ingreso = (Ingreso) o;
+
+		if (!Objects.equals(id, ingreso.id))
+			return false;
+		if (!Objects.equals(fecha, ingreso.fecha))
+			return false;
+		if (!Objects.equals(concepto, ingreso.concepto))
+			return false;
+		return Objects.equals(monto, ingreso.monto);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, fecha, concepto, monto);
 	}
 }
