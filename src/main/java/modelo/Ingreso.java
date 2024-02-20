@@ -10,7 +10,7 @@ public class Ingreso extends Movimiento implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	@Column(name = "fecha", nullable = false)
 	private Date fecha;
