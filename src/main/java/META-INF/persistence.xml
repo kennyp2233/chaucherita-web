@@ -3,6 +3,7 @@
 	<persistence-unit name="MiChauchertiaWeb" transaction-type="RESOURCE_LOCAL">
 		<class>modelo.Cuenta</class>
 		<class>modelo.Ingreso</class>
+		<class>modelo.Categoria</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gestionbancaria"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
